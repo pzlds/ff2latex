@@ -89,7 +89,7 @@ def main():
 
         content = soup.body.find('div', attrs={'id': 'storytext'})
         chapters = soup.body.find('select', attrs={'id': 'chap_select'})
-        current_chapter = chapters.find('option', attrs={'selected': ''})
+        current_chapter = chapters.find('option', attrs={'selected': True})
         profile = soup.body.find('div', attrs={'id': 'profile_top'})
         pure_profile_splits = pure_element(profile).splitlines()
 
