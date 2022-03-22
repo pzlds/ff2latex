@@ -117,14 +117,14 @@ def main():
         for key, value in REPLACEMENT_CHARACTERS.items():
             translated_content = translated_content.replace(key, value)
 
-        with open(os.path.join(args.output, f"{story_id}-{story_slug}-{chapter_number}.tex"), "w") as f:
+        with open(os.path.join(args.output, f"{story_id}-{story_slug}-{chapter_number:02d}.tex"), "w") as f:
             f.write(f"\\chapter{{{chapter_title}}}\n")
             f.write("\n")
             f.write(translated_content)
             f.write("\n")
 
-        if not os.path.isfile(os.path.join(args.output, f"{story_id}-{story_slug}-0.tex")):
-            with open(os.path.join(args.output, f"{story_id}-{story_slug}-0.tex"), "w") as f:
+        if not os.path.isfile(os.path.join(args.output, f"{story_id}-{story_slug}-00.tex")):
+            with open(os.path.join(args.output, f"{story_id}-{story_slug}-00.tex"), "w") as f:
                 f.write("\\documentclass{report}\n")
                 f.write("\n")
                 f.write("\\usepackage[margin=1.5in, footskip=0.25in]{geometry}\n")
