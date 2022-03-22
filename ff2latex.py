@@ -45,7 +45,7 @@ def translate_element(element):
     if element.name == "em" or element.name == "i":
         return f"\\emph{{{translate_children(element)}}}"
 
-    if element.name == "b":
+    if element.name == "b" or element.name == "strong":
         return f"\\textbf{{{translate_children(element)}}}"
 
     if element.name == "span":
@@ -56,6 +56,9 @@ def translate_element(element):
             return f"\\underline{{{translate_children(element)}}}"
 
         raise ValueError(f'Unknown style: "{element["style"]}"')
+
+    if element.name == "hr":
+        return ""
 
     return f"{type(element)}: {element}"
 
