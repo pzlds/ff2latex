@@ -138,7 +138,6 @@ def main():
                 f.write("\\begin{document}\n")
                 f.write("\n")
                 f.write("\\maketitle\n")
-                f.write("\\tableofcontents\n")
                 f.write("\n")
 
         if not os.path.isfile(os.path.join(args.output, f"{story_id}-{story_slug}-end.tex")):
