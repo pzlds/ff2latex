@@ -12,6 +12,7 @@ import undetected_chromedriver
 
 REPLACEMENT_CHARACTERS = {
     '\u0336': '---',
+    '\u2501': '-',
 }
 
 def pure_children(element):
