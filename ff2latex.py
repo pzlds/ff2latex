@@ -7,6 +7,8 @@ import os
 import re
 import requests
 import sys
+import time
+import undetected_chromedriver
 
 REPLACEMENT_CHARACTERS = {
     '\u0336': '---',
@@ -68,16 +70,19 @@ def main():
     if not os.path.isdir(args.output):
         os.makedirs(args.output)
 
+    driver = undetected_chromedriver.Chrome()
+
     for url in args.urls:
         logging.info("Fetching '%s'...", url)
 
-        r = requests.get(url)
+        driver.get(url)
+        time.sleep(1)
 
-        if r.status_code != 200:
-            logging.error("Got status code %d while fetching '%s'", r.status_code, url)
-            return 1
+        while "Just a moment" in driver.title:
+            logging.info("Waiting for page load...")
+            time.sleep(5)
 
-        soup = bs4.BeautifulSoup(r.text, "lxml")
+        soup = bs4.BeautifulSoup(driver.page_source, "lxml")
 
         content = soup.body.find('div', attrs={'id': 'storytext'})
         chapters = soup.body.find('select', attrs={'id': 'chap_select'})
@@ -135,6 +140,8 @@ def main():
         if not os.path.isfile(os.path.join(args.output, f"{story_id}-{story_slug}-end.tex")):
             with open(os.path.join(args.output, f"{story_id}-{story_slug}-end.tex"), "w") as f:
                 f.write("\\end{document}\n")
+
+    driver.close()
 
 
 if __name__ == '__main__':
