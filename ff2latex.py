@@ -61,6 +61,9 @@ def translate_element(element):
     if element.name == "hr":
         return ""
 
+    if element.name == "br":
+        return "\\newline"
+
     return f"{type(element)}: {element}"
 
 def main():
