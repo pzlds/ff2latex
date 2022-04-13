@@ -20,8 +20,24 @@ REPLACEMENT_CHARACTERS = {
     '~': '\\textasciitilde',
 }
 
+LIKE_WHITESPACE = (
+    ' ',
+    '\n',
+)
+
+def join_strings(strings):
+    result = ""
+
+    for string in strings:
+        if len(result) > 0 and len(string) > 0 and result[-1] not in LIKE_WHITESPACE and string[0] not in LIKE_WHITESPACE:
+            result += " "
+
+        result += string
+
+    return result
+
 def pure_children(element):
-    return " ".join([pure_element(child) for child in element.children])
+    return join_strings([pure_element(child) for child in element.children])
 
 def pure_element(element):
     if isinstance(element, bs4.element.NavigableString):
@@ -36,7 +52,7 @@ def pure_element(element):
     return f"{type(element)}: {element}"
 
 def translate_children(element):
-    return " ".join([translate_element(child) for child in element.children])
+    return join_strings([translate_element(child) for child in element.children])
 
 def translate_element(element):
     if isinstance(element, bs4.element.NavigableString):
