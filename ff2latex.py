@@ -114,14 +114,31 @@ def main():
         story_author_match = re.search(r"^\s+By:\s+(\S.+\S)\s+$", pure_profile_splits[1])
         story_desc_match = re.search(r"^\s+(\S.+\S)\s+$", pure_profile_splits[2])
 
-        story_id = int(onchange_id_match.group(1))
-        story_slug = onchange_slug_match.group(1)
-        story_title = story_title_match.group(1)
-        story_author = story_author_match.group(1)
-        story_desc = story_desc_match.group(1)
+        try:
+            story_id = int(onchange_id_match.group(1))
+            story_slug = onchange_slug_match.group(1)
+        except AttributeError:
+            logger.exception("Failed to match story metadata")
+            logger.debug("chapters['onchange']: '%s'", chapters['onchange'])
+            return
 
-        chapter_number = int(current_chapter_matches.group(1))
-        chapter_title = current_chapter_matches.group(2)
+        try:
+            story_title = story_title_match.group(1)
+            story_author = story_author_match.group(1)
+            story_desc = story_desc_match.group(1)
+        except AttributeError:
+            logger.exception("Failed to match story information")
+            logger.debug("pure_profile_splits: '%s'", pure_profile_splits)
+            return
+
+        try:
+            chapter_number = int(current_chapter_matches.group(1))
+            chapter_title = current_chapter_matches.group(2)
+        except AttributeError:
+            logger.exception("Failed to match current chapter")
+            logger.debug("current_chapter.string: '%s'", current_chapter.string)
+            return
+
 
         logger.info("Found chapter %d ('%s') of story %d ('%s')", chapter_number, chapter_title, story_id, story_title)
 
