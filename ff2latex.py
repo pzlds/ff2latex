@@ -22,8 +22,8 @@ REPLACEMENT_CHARACTERS = {
 }
 
 CLEANUP_REPLACEMENTS = {
-    r'[^\S\r\n]+(\\(?:emph){)[^\S\r\n]+': r' \1',
-    r'[^\S\r\n]+}[^\S\r\n]+': r'} ',
+    r'[^\S\r\n]*(\\(?:emph){)[^\S\r\n]+': r' \1',
+    r'[^\S\r\n]+}[^\S\r\n]*': r'} ',
     r'[^\S\r\n]+([,.?!:])': r'\1',
     r'(["\'])[^\S\r\n]+(\\(?:emph){)': r'\1\2',
     r'[^\S\r\n]+([\r\n])': r'\1'
