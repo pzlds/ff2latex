@@ -74,6 +74,7 @@ def translate_element(element):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', '-o', action='store', help='The output directory', dest='output', required=True)
+    parser.add_argument('--debug', '-d', action='store_true', help='Enable debug output', dest='debug')
     parser.add_argument('urls', metavar='URL', nargs='+', help='The URLs that should be processed')
     args = parser.parse_args()
 
@@ -81,7 +82,7 @@ def main():
     logger_handler = logging.StreamHandler()
     logger_handler.setFormatter(logging.Formatter(fmt='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
     logger.addHandler(logger_handler)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG if args.debug else logging.INFO)
 
     if not os.path.isdir(args.output):
         os.makedirs(args.output)
