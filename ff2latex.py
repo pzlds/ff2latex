@@ -21,8 +21,7 @@ REPLACEMENT_CHARACTERS = {
 }
 
 CLEANUP_REPLACEMENTS = {
-    r'\s+}': '}',
-    r'\s+,': ',',
+    r'\s+([},.])': r'\1',
 }
 
 LIKE_WHITESPACE = (
