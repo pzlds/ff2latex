@@ -25,28 +25,11 @@ CLEANUP_REPLACEMENTS = {
     r'[^\S\r\n]*(\\(?:emph){)[^\S\r\n]+': r' \1',
     r'[^\S\r\n]+}[^\S\r\n]*': r'} ',
     r'[^\S\r\n]+([,.?!:])': r'\1',
-    r'(["\'])[^\S\r\n]+(\\(?:emph){)': r'\1\2',
     r'[^\S\r\n]+([\r\n])': r'\1'
 }
 
-LIKE_WHITESPACE = (
-    ' ',
-    '\n',
-)
-
-def join_strings(strings):
-    result = ""
-
-    for string in strings:
-        if len(result) > 0 and len(string) > 0 and result[-1] not in LIKE_WHITESPACE and string[0] not in LIKE_WHITESPACE:
-            result += " "
-
-        result += string
-
-    return result
-
 def pure_children(element):
-    return join_strings([pure_element(child) for child in element.children])
+    return "".join([pure_element(child) for child in element.children])
 
 def pure_element(element):
     if isinstance(element, bs4.element.NavigableString):
@@ -61,7 +44,7 @@ def pure_element(element):
     return f"{type(element)}: {element}"
 
 def translate_children(element):
-    return join_strings([translate_element(child) for child in element.children])
+    return "".join([translate_element(child) for child in element.children])
 
 def translate_element(element):
     if isinstance(element, bs4.element.NavigableString):
