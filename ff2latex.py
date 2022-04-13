@@ -77,7 +77,11 @@ def main():
     parser.add_argument('urls', metavar='URL', nargs='+', help='The URLs that should be processed')
     args = parser.parse_args()
 
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
+    logger = logging.getLogger('ff2latex')
+    logger_handler = logging.StreamHandler()
+    logger_handler.setFormatter(logging.Formatter(fmt='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
+    logger.addHandler(logger_handler)
+    logger.setLevel(logging.INFO)
 
     if not os.path.isdir(args.output):
         os.makedirs(args.output)
@@ -85,13 +89,13 @@ def main():
     driver = undetected_chromedriver.Chrome()
 
     for url in args.urls:
-        logging.info("Fetching '%s'...", url)
+        logger.info("Fetching '%s'...", url)
 
         driver.get(url)
         time.sleep(1)
 
         while "Just a moment" in driver.title:
-            logging.info("Waiting for page load...")
+            logger.info("Waiting for page load...")
             time.sleep(5)
 
         soup = bs4.BeautifulSoup(driver.page_source, "lxml")
@@ -118,7 +122,7 @@ def main():
         chapter_number = int(current_chapter_matches.group(1))
         chapter_title = current_chapter_matches.group(2)
 
-        logging.info("Found chapter %d ('%s') of story %d ('%s')", chapter_number, chapter_title, story_id, story_title)
+        logger.info("Found chapter %d ('%s') of story %d ('%s')", chapter_number, chapter_title, story_id, story_title)
 
         translated_content = translate_element(content)
 
