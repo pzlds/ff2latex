@@ -18,6 +18,7 @@ REPLACEMENT_CHARACTERS = {
     '_': '\\_',
     '#': '\\#',
     '~': '\\textasciitilde',
+    '%': '\%',
 }
 
 CLEANUP_REPLACEMENTS = {
