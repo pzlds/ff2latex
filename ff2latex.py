@@ -110,9 +110,9 @@ def main():
         current_chapter_matches = re.match(r"(\d+)\. (.+)", current_chapter.string)
         onchange_id_match = re.search(r"'/s/(\d+)/'", chapters['onchange'])
         onchange_slug_match = re.search(r"'/(\S+)';", chapters['onchange'])
-        story_title_match = re.search(r"^\s+(\S.+\S)\s+$", pure_profile_splits[0])
-        story_author_match = re.search(r"^\s+By:\s+(\S.+\S)\s+$", pure_profile_splits[1])
-        story_desc_match = re.search(r"^\s+(\S.+\S)\s+$", pure_profile_splits[2])
+        story_title_match = re.search(r"^\s*(\S.*\S)\s*$", pure_profile_splits[0])
+        story_author_match = re.search(r"^\s*By:\s+(\S.*\S)\s*$", pure_profile_splits[1])
+        story_desc_match = re.search(r"^\s*(\S.*\S)\s*$", pure_profile_splits[2])
 
         try:
             story_id = int(onchange_id_match.group(1))
