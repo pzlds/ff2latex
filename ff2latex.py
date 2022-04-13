@@ -167,6 +167,7 @@ def main():
         translated_content = translate_element(content)
 
         for key, value in REPLACEMENT_CHARACTERS.items():
+            chapter_title = chapter_title.replace(key, value)
             translated_content = translated_content.replace(key, value)
 
         if args.cleanup:
