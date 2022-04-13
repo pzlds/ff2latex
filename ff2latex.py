@@ -13,12 +13,12 @@ import undetected_chromedriver
 REPLACEMENT_CHARACTERS = {
     '\u0336': '---',
     '\u2501': '-',
-    '&': '\\&',
-    '$': '\\$',
-    '_': '\\_',
-    '#': '\\#',
-    '~': '\\textasciitilde{}',
-    '%': '\%',
+    '&': r'\&',
+    '$': r'\$',
+    '_': r'\_',
+    '#': r'\#',
+    '~': r'\textasciitilde{}',
+    '%': r'\%',
 }
 
 CLEANUP_REPLACEMENTS = {
