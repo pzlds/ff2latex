@@ -20,6 +20,11 @@ REPLACEMENT_CHARACTERS = {
     '~': '\\textasciitilde',
 }
 
+CLEANUP_REPLACEMENTS = {
+    r'\s+}': '}',
+    r'\s+,': ',',
+}
+
 LIKE_WHITESPACE = (
     ' ',
     '\n',
@@ -91,6 +96,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', '-o', action='store', help='The output directory', dest='output', required=True)
     parser.add_argument('--debug', '-d', action='store_true', help='Enable debug output', dest='debug')
+    parser.add_argument('--cleanup', '-c', action='store_true', help='Enable cleanup of the output text', dest='cleanup')
     parser.add_argument('urls', metavar='URL', nargs='+', help='The URLs that should be processed')
     args = parser.parse_args()
 
@@ -162,6 +168,10 @@ def main():
 
         for key, value in REPLACEMENT_CHARACTERS.items():
             translated_content = translated_content.replace(key, value)
+
+        if args.cleanup:
+            for key, value in CLEANUP_REPLACEMENTS.items():
+                translated_content = re.sub(key, value, translated_content)
 
         with open(os.path.join(args.output, f"{story_id}-{story_slug}-{chapter_number:02d}.tex"), "w") as f:
             f.write(f"\\chapter{{{chapter_title}}}\n")
