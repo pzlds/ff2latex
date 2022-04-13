@@ -17,7 +17,7 @@ REPLACEMENT_CHARACTERS = {
     '$': '\\$',
     '_': '\\_',
     '#': '\\#',
-    '~': '\\textasciitilde',
+    '~': '\\textasciitilde{}',
     '%': '\%',
 }
 
@@ -91,7 +91,7 @@ def translate_element(element):
         return ""
 
     if element.name == "br":
-        return "\\newline"
+        return "\\newline{}"
 
     return f"{type(element)}: {element}"
 
