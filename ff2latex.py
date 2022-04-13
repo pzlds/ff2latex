@@ -95,7 +95,7 @@ def main():
         driver.get(url)
         time.sleep(1)
 
-        while "Just a moment" in driver.title:
+        while "FanFiction" not in driver.title:
             logger.info("Waiting for page load...")
             time.sleep(5)
 
