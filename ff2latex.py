@@ -157,9 +157,14 @@ def main():
             chapter_title = chapter_title.replace(key, value)
             translated_content = translated_content.replace(key, value)
 
-        if args.cleanup:
+        while args.cleanup:
+            translated_content_old = translated_content
+
             for key, value in CLEANUP_REPLACEMENTS.items():
                 translated_content = re.sub(key, value, translated_content)
+
+            if translated_content == translated_content_old:
+                break
 
         with open(os.path.join(args.output, f"{story_id}-{story_slug}-{chapter_number:02d}.tex"), "w") as f:
             f.write(f"\\chapter{{{chapter_title}}}\n")
