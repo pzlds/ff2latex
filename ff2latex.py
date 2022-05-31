@@ -116,20 +116,21 @@ def main():
 
         content = soup.body.find('div', attrs={'id': 'storytext'})
         chapters = soup.body.find('select', attrs={'id': 'chap_select'})
-        current_chapter = chapters.find('option', attrs={'selected': True})
         profile = soup.body.find('div', attrs={'id': 'profile_top'})
         pure_profile_splits = pure_element(profile).splitlines()
 
-        current_chapter_matches = re.match(r"(\d+)\. (.+)", current_chapter.string)
-        onchange_id_match = re.search(r"'/s/(\d+)/'", chapters['onchange'])
-        onchange_slug_match = re.search(r"'/(\S+)';", chapters['onchange'])
+        if chapters is not None:
+            current_chapter = chapters.find('option', attrs={'selected': True})
+
+        current_chapter_matches = re.match(r"(\d+)\. (.+)", current_chapter.string if chapters is not None else '1. Oneshot')
+        onchange_match = re.search(r"/s/(\d+)/.*/(\S+)'", chapters['onchange'] if chapters is not None else "self.location = '" + url + "'")
         story_title_match = re.search(r"^\s*(\S.*\S)\s*$", pure_profile_splits[0])
         story_author_match = re.search(r"^\s*By:\s+(\S.*\S)\s*$", pure_profile_splits[1])
         story_desc_match = re.search(r"^\s*(\S.*\S)\s*$", pure_profile_splits[2])
 
         try:
-            story_id = int(onchange_id_match.group(1))
-            story_slug = onchange_slug_match.group(1)
+            story_id = int(onchange_match.group(1))
+            story_slug = onchange_match.group(2)
         except AttributeError:
             logger.exception("Failed to match story metadata")
             logger.debug("chapters['onchange']: '%s'", chapters['onchange'])
