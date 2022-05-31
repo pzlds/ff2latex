@@ -36,7 +36,7 @@ def pure_element(element):
     if isinstance(element, bs4.element.NavigableString):
         return str(element)
 
-    if element.name in ["img", "button"]:
+    if element.name in ["img", "button", "ins"]:
         return ""
 
     if element.name in ["div", "span", "b", "a"]:
@@ -73,6 +73,9 @@ def translate_element(element):
         raise ValueError(f'Unknown style: "{element["style"]}"')
 
     if element.name == "hr":
+        return ""
+
+    if element.name == "ins":
         return ""
 
     if element.name == "br":
