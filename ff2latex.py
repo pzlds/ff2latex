@@ -19,6 +19,7 @@ REPLACEMENT_CHARACTERS = {
     '#': r'\#',
     '~': r'\textasciitilde{}',
     '%': r'\%',
+    '^': r'\textasciicircum{}',
 }
 
 CLEANUP_REPLACEMENTS = {
