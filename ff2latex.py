@@ -68,7 +68,8 @@ def translate_element(element):
         if not element.has_attr("style"):
             return translate_children(element)
 
-        if "text-decoration:underline;" in element["style"]:
+        if ("text-decoration:underline;" in element["style"] or
+            "text-decoration: underline;" in element["style"]):
             return f"\\underline{{{translate_children(element)}}}"
 
         raise ValueError(f'Unknown style: "{element["style"]}"')
