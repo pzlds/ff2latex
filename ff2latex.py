@@ -103,6 +103,7 @@ def main():
         os.makedirs(args.output)
 
     driver = undetected_chromedriver.Chrome()
+    time.sleep(1)
 
     for url in args.urls:
         logger.info("Fetching '%s'...", url)
