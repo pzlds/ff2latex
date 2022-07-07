@@ -50,7 +50,7 @@ def translate_children(element):
 
 def translate_element(element):
     if isinstance(element, bs4.element.NavigableString):
-        return str(element)
+        return str(element).replace('\\', r'\textbackslash{}')
 
     if element.name == "div":
         return translate_children(element)
