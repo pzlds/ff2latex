@@ -76,7 +76,7 @@ def translate_element(element):
         raise ValueError(f'Unknown style: "{element["style"]}"')
 
     if element.name == "hr":
-        return ""
+        return "\n\n"
 
     if element.name == "ins":
         return ""
