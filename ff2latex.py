@@ -91,6 +91,7 @@ def main():
     parser.add_argument('--output', '-o', action='store', help='The output directory', dest='output', required=True)
     parser.add_argument('--debug', '-d', action='store_true', help='Enable debug output', dest='debug')
     parser.add_argument('--cleanup', '-c', action='store_true', help='Enable cleanup of the output text', dest='cleanup')
+    parser.add_argument('--suppress-page-numbers', action='store_true', help='Suppress page numbers', dest='suppress_page_numbers')
     parser.add_argument('urls', metavar='URL', nargs='+', help='The URLs that should be processed')
     args = parser.parse_args()
 
@@ -186,6 +187,8 @@ def main():
                 f.write("\\documentclass{report}\n")
                 f.write("\n")
                 f.write("\\usepackage[margin=1.5in, footskip=0.25in]{geometry}\n")
+                if args.suppress_page_numbers:
+                    f.write("\\pagenumbering{gobble}\n")
                 f.write("\n")
                 f.write(f"\\title{{{story_title}}}\n")
                 f.write(f"\\author{{{story_author}}}\n")
