@@ -27,7 +27,8 @@ CLEANUP_REPLACEMENTS = {
     r'[^\S\r\n]+}[^\S\r\n]*': r'} ',
     r'[^\S\r\n]+([,.?!])': r'\1',
     r'\\emph{\\emph{([^{}]+)}}': r'\\emph{\1}',
-    r'[^\S\r\n]+([\r\n])': r'\1'
+    r'[^\S\r\n]+([\r\n])': r'\1',
+    r'\. \. \.': r'...',
 }
 
 def pure_children(element):
